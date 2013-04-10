@@ -450,10 +450,10 @@ function twentytwelve_customize_preview_js() {
 add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
 
 /**
- *Custom taxonomy for artists
+ *Rename categories taxonomy for artists
  */
 
-function artist_taxonomies(){
+function artist_taxonomy(){
 	$labels = array(
 		'name' 				=> _x( 'Artists', 'taxonomy general name' ),
 		'singular_name'     => _x( 'Artist', 'taxonomy singular name' ),
@@ -467,6 +467,7 @@ function artist_taxonomies(){
 	    'separate_items_with_commas'   => __( 'Separate artists with commas' ),
 	    'add_or_remove_items'          => __( 'Add or remove artists' ),
 	    'choose_from_most_used'        => __( 'Choose from the most used artists' ),
+		'not_found'        => __( 'No artists found' ),
 		);
 		
 	$args = array(
@@ -474,12 +475,71 @@ function artist_taxonomies(){
 		'hierarchical' =>false,
 		);
 		
-	register_taxonomy( 'artist', 'post', $args );
+	register_taxonomy( 'category', 'post', $args );
 }
 
-add_action( 'init', 'artist_taxonomies', 0 );
+add_action( 'init', 'artist_taxonomy', 0 );
 
 /**
  *Rename tags taxonomy for tools used
  */
 
+function tools_used_taxonomy(){
+	$labels = array(
+		'name' 				=> _x( 'Tools used', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Tool', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Tools' ),
+		'all_items'         => __( 'All Tools' ),
+		'edit_item'         => __( 'Edit Tool' ), 
+		'update_item'       => __( 'Update Tool' ),
+		'add_new_item'      => __( 'Add New Tool' ),
+		'new_item_name'     => __( 'New Tool' ),
+		'menu_name'         => __( 'Tools' ),
+	    'separate_items_with_commas'   => __( 'Separate tools with commas' ),
+	    'add_or_remove_items'          => __( 'Add or remove tools' ),
+	    'choose_from_most_used'        => __( 'Choose from the most used tools' ),
+		'not_found'        => __( 'No tools found' ),
+		);
+		
+	$args = array(
+		'labels' => $labels,
+		'hierarchical' =>false,
+		);
+	
+	//replaces default post_tag taxonomy	
+	register_taxonomy( 'post_tag', 'post', $args );
+}
+
+add_action( 'init', 'tools_used_taxonomy', 0 );
+
+/**
+ *Custom taxonomy for genre
+ */
+
+function genre_taxonomy(){
+	$labels = array(
+		'name' 				=> _x( 'Genre', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Genre', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Genres' ),
+		'all_items'         => __( 'All Genres' ),
+		'edit_item'         => __( 'Edit Genre' ), 
+		'update_item'       => __( 'Update Genre' ),
+		'add_new_item'      => __( 'Add New Genre' ),
+		'new_item_name'     => __( 'New Genre' ),
+		'menu_name'         => __( 'Genre' ),
+	    'separate_items_with_commas'   => __( 'Separate genres with commas' ),
+	    'add_or_remove_items'          => __( 'Add or remove genres' ),
+	    'choose_from_most_used'        => __( 'Choose from the most used genres' ),
+		'not_found'        => __( 'No genres found' ),
+		);
+		
+	$args = array(
+		'labels' => $labels,
+		'hierarchical' =>false,
+		);
+	
+	//replaces default post_tag taxonomy	
+	register_taxonomy( 'genre', 'post', $args );
+}
+
+add_action( 'init', 'genre_taxonomy', 0 );
