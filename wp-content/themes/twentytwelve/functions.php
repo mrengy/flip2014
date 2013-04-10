@@ -464,14 +464,22 @@ function artist_taxonomies(){
 		'add_new_item'      => __( 'Add New Artist' ),
 		'new_item_name'     => __( 'New Artist' ),
 		'menu_name'         => __( 'Artists' ),
+	    'separate_items_with_commas'   => __( 'Separate artists with commas' ),
+	    'add_or_remove_items'          => __( 'Add or remove artists' ),
+	    'choose_from_most_used'        => __( 'Choose from the most used artists' ),
 		);
 		
 	$args = array(
 		'labels' => $labels,
-		'hierarchical' =>true,
+		'hierarchical' =>false,
 		);
 		
 	register_taxonomy( 'artist', 'post', $args );
 }
 
 add_action( 'init', 'artist_taxonomies', 0 );
+
+/**
+ *Rename tags taxonomy for tools used
+ */
+
