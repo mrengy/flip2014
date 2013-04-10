@@ -450,84 +450,28 @@ function twentytwelve_customize_preview_js() {
 add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
 
 /**
- * Custom post meta for Flip
+ *Custom taxonomy for artists
  */
-add_action( 'load-post.php', 'flip_post_meta_boxes_setup');
-add_action( 'load-post-new.php', 'flip_post_meta_boxes_setup');
 
-//meta box setup function
-function flip_post_meta_boxes_setup(){
-	
-	//add meta boxes on the 'add_meta_boxes' hook
-	add_action( 'add_meta_boxes', 'flip_add_post_meta_boxes');
-	
-	//save post meta on the 'save_post' hook
-	add_action( 'save_post', 'flip_save_post_class_meta', 10, 2);
-}
-
-//create meta boxes
-function flip_add_post_meta_boxes(){
-	add_meta_box(
-		'flip-artist-info',
-		esc_html__( 'Artist Info', 'example' ),
-		'flip_artist_info_meta_box',
-		'post',
-		'normal',
-		'high'
+function artist_taxonomies(){
+	$labels = array(
+		'name' 				=> _x( 'Artists', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Artist', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Artists' ),
+		'all_items'         => __( 'All Artists' ),
+		'edit_item'         => __( 'Edit Artist' ), 
+		'update_item'       => __( 'Update Artist' ),
+		'add_new_item'      => __( 'Add New Artist' ),
+		'new_item_name'     => __( 'New Artist' ),
+		'menu_name'         => __( 'Artists' ),
 		);
+		
+	$args = array(
+		'labels' => $labels,
+		'hierarchical' =>true,
+		);
+		
+	register_taxonomy( 'artist', 'post', $args );
 }
 
-//display the post meta box
-function flip_artist_info_meta_box( $object, $box) { ?>
-	<?php wp_nonce_field ( basename( __FILE__), 'flip_artist_info_nonce'); ?>
-	<p>
-		<label for="flip-artist-info"><?php _e( "Artist info", 'example'); ?></label>
-		<br />
-		<input class="widefat" type="text" name="flip-artist-info" id="flip-artist-info" value="<?php echo esc_attr( get_post_meta( $object->ID, 'flip_artist_info', true )); ?>" size="30" />
-	</p>
-	
-<?php }
-
-//save the meta box's post metadata
-
-function flip_save_post_class_meta( $post_id, $post ){
-
-	//verify the nonce before proceeding
-	if ( !isset( $_POST['flip_artist_info_nonce'] ) || !wp_verify_nonce( $_POST['flip_artist_info_nonce'], basename( __FILE__)) ){
-		return $post_id;
-	}
-	
-	//get the post type object
-	$post_type = get_post_type_object ( $post->post_type );
-	
-	//check if current user has permission to edit the post
-	
-	if ( !current_user_can( $post_type->cap->edit_post, $post_id )){
-		return $post_id;
-	}
-	
-	//get the posted data and sanitize it for use as an HTML class - may not need this
-	$new_meta_value = ( isset( $_POST['flip-artist-info'] ) ? $_POST['flip-artist-info'] : '' );
-	
-	//get the meta key
-	$meta_key = 'flip_artist_info';
-	
-	//get the meta value of the custom field key
-	$meta_value = get_post_meta( $post_id, $meta_key, true);
-	
-	//if a new meta value was added and there was no previous value, add it.
-	if ( $new_meta_value && '' == $meta_value ){
-		add_post_meta( $post_id, $meta_key, $new_meta_value, true );
-	}
-	
-	//if the new meta value does not match the old value, update it
-	elseif ( $new_meta_value && $new_meta_value != $meta_value ){
-		update_post_meta( $post_id, $meta_key, $new_meta_value );
-	}
-	
-	//if there is no new meta value but an old value exists, delete it
-	
-	elseif ('' == $new_meta_value && $meta_value ){
-		delete_post_meta( $post_id, $meta_key, $meta_value );
-	}
-}
+add_action( 'init', 'artist_taxonomies', 0 );
