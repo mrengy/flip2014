@@ -543,3 +543,23 @@ function genre_taxonomy(){
 }
 
 add_action( 'init', 'genre_taxonomy', 0 );
+
+/**
+ *Remove post meta boxes from posts
+ */
+
+add_filter('add_meta_boxes', 'hide_meta_boxes_posts');
+
+function hide_meta_boxes_posts() {
+ 
+	remove_meta_box('postexcerpt', 'post', 'normal');
+	remove_meta_box('trackbacksdiv', 'post', 'normal');
+	remove_meta_box('postcustom', 'post', 'normal');
+	remove_meta_box('slugdiv', 'post', 'normal');
+	remove_meta_box('formatdiv', 'post', 'side');
+	remove_meta_box('authordiv', 'post', 'normal');
+	remove_meta_box('commentstatusdiv', 'post', 'normal');
+	//remove_meta_box('commentsdiv', 'post', 'normal');
+	//remove_meta_box('revisionsdiv', 'post', 'normal');
+ 
+}
