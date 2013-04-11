@@ -467,7 +467,7 @@ function artist_taxonomy(){
 	    'separate_items_with_commas'   => __( 'Separate artists with commas' ),
 	    'add_or_remove_items'          => __( 'Add or remove artists' ),
 	    'choose_from_most_used'        => __( 'Choose from the most used artists' ),
-		'not_found'        => __( 'No artists found' ),
+		'not_found'        	=> __( 'No artists found' ),
 		);
 		
 	$args = array(
