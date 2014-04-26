@@ -564,6 +564,63 @@ function hide_meta_boxes_posts() {
  
 }
 
+/**
+ * Custom post type of "artist"
+ */
+
+add_action('init', 'my_custom_post_artist');
+function my_custom_post_artist(){
+	$labels = array(
+			'name'               => _x( 'Artists', 'post type general name' ),
+			'singular_name'      => _x( 'Artist', 'post type singular name' ),
+			'add_new'            => _x( 'Add New', 'book' ),
+			'add_new_item'       => __( 'Add New Artist' ),
+			'edit_item'          => __( 'Edit Artist' ),
+			'new_item'           => __( 'New Artist' ),
+			'all_items'          => __( 'All Artists' ),
+			'view_item'          => __( 'View Artist' ),
+			'search_items'       => __( 'Search Artists' ),
+			'not_found'          => __( 'No artists found' ),
+			'not_found_in_trash' => __( 'No artists found in the Trash' ), 
+			'parent_item_colon'  => '',
+			'menu_name'          => 'Artists'
+		);
+	
+	$args = array(
+			'labels'        => $labels,
+			'description'   => 'Artists who created work published here',
+			'public'        => true,
+			'menu_position' => 5,
+			'supports'      => array( 'title',),
+			'has_archive'   => true
+		);
+	register_post_type('artist', $args);
+}
+
+add_action('init', 'my_taxonomies_artist', 0);
+function my_taxonomies_artist(){
+	$labels = array(
+			'name'              => _x( 'Artist Categories', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Artist Category', 'taxonomy singular name' ),
+			'search_items'      => __( 'Search Artist Categories' ),
+			'all_items'         => __( 'All Artist Categories' ),
+			'parent_item'       => __( 'Parent Category' ),
+			'parent_item_colon' => __( 'Parent Category:' ),
+			'edit_item'         => __( 'Edit Category' ), 
+			'update_item'       => __( 'Update Category' ),
+			'add_new_item'      => __( 'Add New Category' ),
+			'new_item_name'     => __( 'New Category' ),
+			'menu_name'         => __( 'Artist Categories' )
+		);
+		
+	$args = array(
+			'labels' => $labels,
+			'hierarchical' => true
+		);
+	register_taxonomy('artist_category', 'artist', $args);
+}
+
+
 /* Add login styles */
 add_action( 'login_enqueue_scripts', 'my_login_styles' );
 
