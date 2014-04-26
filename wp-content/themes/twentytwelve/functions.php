@@ -591,7 +591,7 @@ function my_custom_post_artist(){
 			'description'   => 'Artists who created work published here',
 			'public'        => true,
 			'menu_position' => 5,
-			'supports'      => array( 'title',),
+			'supports'      => array( 'title', 'editor', 'revisions',),
 			'has_archive'   => true
 		);
 	register_post_type('artist', $args);
