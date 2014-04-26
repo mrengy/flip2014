@@ -450,24 +450,24 @@ function twentytwelve_customize_preview_js() {
 add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
 
 /**
- *Rename categories taxonomy for genre
+ *Rename categories taxonomy for artists
  */
 
-function genre_taxonomy(){
+function artist_taxonomy(){
 	$labels = array(
-		'name' 				=> _x( 'Genres', 'taxonomy general name' ),
-		'singular_name'     => _x( 'Genre', 'taxonomy singular name' ),
-		'search_items'      => __( 'Search Genres' ),
-		'all_items'         => __( 'All Genres' ),
-		'edit_item'         => __( 'Edit Genre' ), 
-		'update_item'       => __( 'Update Genre' ),
-		'add_new_item'      => __( 'Add New Genre' ),
-		'new_item_name'     => __( 'New Genre' ),
-		'menu_name'         => __( 'Genres' ),
-	    'separate_items_with_commas'   => __( 'Separate genres with commas' ),
-	    'add_or_remove_items'          => __( 'Add or remove genres' ),
-	    'choose_from_most_used'        => __( 'Choose from the most used genres' ),
-		'not_found'        	=> __( 'No genres found' ),
+		'name' 				=> _x( 'Artists', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Artist', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Artists' ),
+		'all_items'         => __( 'All Artists' ),
+		'edit_item'         => __( 'Edit Artist' ), 
+		'update_item'       => __( 'Update Artist' ),
+		'add_new_item'      => __( 'Add New Artist' ),
+		'new_item_name'     => __( 'New Artist' ),
+		'menu_name'         => __( 'Artists' ),
+	    'separate_items_with_commas'   => __( 'Separate artists with commas' ),
+	    'add_or_remove_items'          => __( 'Add or remove artists' ),
+	    'choose_from_most_used'        => __( 'Choose from the most used artists' ),
+		'not_found'        	=> __( 'No artists found' ),
 		);
 		
 	$args = array(
@@ -478,7 +478,7 @@ function genre_taxonomy(){
 	register_taxonomy( 'category', 'post', $args );
 }
 
-add_action( 'init', 'genre_taxonomy', 0 );
+add_action( 'init', 'artist_taxonomy', 0 );
 
 /**
  *Rename tags taxonomy for tools used
@@ -513,6 +513,38 @@ function tools_used_taxonomy(){
 add_action( 'init', 'tools_used_taxonomy', 0 );
 
 /**
+ *Custom taxonomy for genre
+ */
+
+function genre_taxonomy(){
+	$labels = array(
+		'name' 				=> _x( 'Genre', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Genre', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Genres' ),
+		'all_items'         => __( 'All Genres' ),
+		'edit_item'         => __( 'Edit Genre' ), 
+		'update_item'       => __( 'Update Genre' ),
+		'add_new_item'      => __( 'Add New Genre' ),
+		'new_item_name'     => __( 'New Genre' ),
+		'menu_name'         => __( 'Genre' ),
+	    'separate_items_with_commas'   => __( 'Separate genres with commas' ),
+	    'add_or_remove_items'          => __( 'Add or remove genres' ),
+	    'choose_from_most_used'        => __( 'Choose from the most used genres' ),
+		'not_found'        => __( 'No genres found' ),
+		);
+		
+	$args = array(
+		'labels' => $labels,
+		'hierarchical' =>false,
+		);
+	
+	//replaces default post_tag taxonomy	
+	register_taxonomy( 'genre', 'post', $args );
+}
+
+add_action( 'init', 'genre_taxonomy', 0 );
+
+/**
  *Remove post meta boxes from posts
  */
 
@@ -531,40 +563,6 @@ function hide_meta_boxes_posts() {
 	//remove_meta_box('revisionsdiv', 'post', 'normal');
  
 }
-
-/**
- * Custom post type of "artist"
- */
-
-add_action('init', 'my_custom_post_artist');
-function my_custom_post_artist(){
-	$labels = array(
-			'name'               => _x( 'Artists', 'post type general name' ),
-			'singular_name'      => _x( 'Artist', 'post type singular name' ),
-			'add_new'            => _x( 'Add New', 'book' ),
-			'add_new_item'       => __( 'Add New Artist' ),
-			'edit_item'          => __( 'Edit Artist' ),
-			'new_item'           => __( 'New Artist' ),
-			'all_items'          => __( 'All Artists' ),
-			'view_item'          => __( 'View Artist' ),
-			'search_items'       => __( 'Search Artists' ),
-			'not_found'          => __( 'No artists found' ),
-			'not_found_in_trash' => __( 'No artists found in the Trash' ), 
-			'parent_item_colon'  => '',
-			'menu_name'          => 'Artists'
-		);
-	
-	$args = array(
-			'labels'        => $labels,
-			'description'   => 'Artists who created work published here',
-			'public'        => true,
-			'menu_position' => 5,
-			'supports'      => array( 'title', 'editor', 'revisions',),
-			'has_archive'   => true
-		);
-	register_post_type('artist', $args);
-}
-
 
 /* Add login styles */
 add_action( 'login_enqueue_scripts', 'my_login_styles' );
