@@ -563,3 +563,14 @@ function hide_meta_boxes_posts() {
 	//remove_meta_box('revisionsdiv', 'post', 'normal');
  
 }
+
+/* Add login styles */
+add_action( 'login_enqueue_scripts', 'my_login_styles' );
+
+function my_login_styles() { ?>
+<style type="text/css">
+	p#backtoblog {
+		display: none;
+	}
+</style>
+<?php }
