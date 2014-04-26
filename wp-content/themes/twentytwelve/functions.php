@@ -565,29 +565,6 @@ function my_custom_post_artist(){
 	register_post_type('artist', $args);
 }
 
-add_action('init', 'my_taxonomies_artist', 0);
-function my_taxonomies_artist(){
-	$labels = array(
-			'name'              => _x( 'Artist Categories', 'taxonomy general name' ),
-			'singular_name'     => _x( 'Artist Category', 'taxonomy singular name' ),
-			'search_items'      => __( 'Search Artist Categories' ),
-			'all_items'         => __( 'All Artist Categories' ),
-			'parent_item'       => __( 'Parent Category' ),
-			'parent_item_colon' => __( 'Parent Category:' ),
-			'edit_item'         => __( 'Edit Category' ), 
-			'update_item'       => __( 'Update Category' ),
-			'add_new_item'      => __( 'Add New Category' ),
-			'new_item_name'     => __( 'New Category' ),
-			'menu_name'         => __( 'Artist Categories' )
-		);
-		
-	$args = array(
-			'labels' => $labels,
-			'hierarchical' => true
-		);
-	register_taxonomy('artist_category', 'artist', $args);
-}
-
 
 /* Add login styles */
 add_action( 'login_enqueue_scripts', 'my_login_styles' );
