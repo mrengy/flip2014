@@ -349,9 +349,9 @@ function twentytwelve_entry_meta() {
 
 	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name.
 	if ( $tag_list ) {
-		$utility_text = __( 'This piece was created by %1$s and tagged %2$s on %3$s<span class="by-author"> by %4$s</span>.', 'twentytwelve' );
+		$utility_text = __( 'This piece was created by %1$s, using %2$s <span class="by-author"> by %4$s</span>.', 'twentytwelve' );
 	} elseif ( $categories_list ) {
-		$utility_text = __( 'This piece was created by %1$s on %3$s<span class="by-author"> by %4$s</span>.', 'twentytwelve' );
+		$utility_text = __( 'This piece was created by %1$s <span class="by-author"> by %4$s</span>.', 'twentytwelve' );
 	} else {
 		$utility_text = __( 'This piece was created by %3$s<span class="by-author"> by %4$s</span>.', 'twentytwelve' );
 	}
@@ -511,38 +511,6 @@ function tools_used_taxonomy(){
 }
 
 add_action( 'init', 'tools_used_taxonomy', 0 );
-
-/**
- *Custom taxonomy for genre
- */
-
-function genre_taxonomy(){
-	$labels = array(
-		'name' 				=> _x( 'Genre', 'taxonomy general name' ),
-		'singular_name'     => _x( 'Genre', 'taxonomy singular name' ),
-		'search_items'      => __( 'Search Genres' ),
-		'all_items'         => __( 'All Genres' ),
-		'edit_item'         => __( 'Edit Genre' ), 
-		'update_item'       => __( 'Update Genre' ),
-		'add_new_item'      => __( 'Add New Genre' ),
-		'new_item_name'     => __( 'New Genre' ),
-		'menu_name'         => __( 'Genre' ),
-	    'separate_items_with_commas'   => __( 'Separate genres with commas' ),
-	    'add_or_remove_items'          => __( 'Add or remove genres' ),
-	    'choose_from_most_used'        => __( 'Choose from the most used genres' ),
-		'not_found'        => __( 'No genres found' ),
-		);
-		
-	$args = array(
-		'labels' => $labels,
-		'hierarchical' =>false,
-		);
-	
-	//replaces default post_tag taxonomy	
-	register_taxonomy( 'genre', 'post', $args );
-}
-
-add_action( 'init', 'genre_taxonomy', 0 );
 
 /**
  *Remove post meta boxes from posts
