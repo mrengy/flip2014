@@ -351,12 +351,14 @@ function twentytwelve_entry_meta() {
 
 	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name and 5 is tools.
 	if ( $tools ) {
-		$utility_text = __( 'This piece was created by %1$s, tagged %2$s, using the tools %5$s', 'twentytwelve' );
+		if ( $categories_list ) {
+			$utility_text = __( 'This piece was created by %1$s, using %5$s', 'twentytwelve' );
+		} else{
+			$utility_text = __( 'This piece was created using %5$s', 'twentytwelve' );
+		}
 	} elseif ( $categories_list ) {
 		$utility_text = __( 'This piece was created by %1$s.', 'twentytwelve' );
-	} else {
-		$utility_text = __( 'This piece was created by %3$s.', 'twentytwelve' );
-	}
+	} 
 
 	printf(
 		$utility_text,
