@@ -328,12 +328,6 @@ if ( ! function_exists( 'twentytwelve_entry_meta' ) ) :
  * @since Twenty Twelve 1.0
  */
 function twentytwelve_entry_meta() {
-	// Translators: used between list items, there is a space after the comma.
-	$categories_list = get_the_category_list( __( ', ', 'twentytwelve' ) );
-
-	// Translators: used between list items, there is a space after the comma.
-	$tag_list = get_the_tag_list( '', __( ', ', 'twentytwelve' ) );
-
 	$date = sprintf( '<a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a>',
 		esc_url( get_permalink() ),
 		esc_attr( get_the_time() ),
@@ -351,21 +345,19 @@ function twentytwelve_entry_meta() {
 	
 	$artists = get_the_term_list($post->ID, 'artist','',', ');
 
-	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name, 5 is tools, and 6 is artists.
+	// Translators: 1 is the date and 2 is the author's name, 3 is tools, and 4 is artists.
 	if ( $tools ) {
 		if ( $artists ) {
-			$utility_text = __( 'This piece was created by %6$s, using %5$s', 'twentytwelve' );
+			$utility_text = __( 'This piece was created by %4$s, using %3$s', 'twentytwelve' );
 		} else{
-			$utility_text = __( 'This piece was created using %5$s', 'twentytwelve' );
+			$utility_text = __( 'This piece was created using %3$s', 'twentytwelve' );
 		}
 	} elseif ( $artists ) {
-		$utility_text = __( 'This piece was created by %6$s.', 'twentytwelve' );
+		$utility_text = __( 'This piece was created by %4$s.', 'twentytwelve' );
 	} 
 
 	printf(
 		$utility_text,
-		$categories_list,
-		$tag_list,
 		$date,
 		$author,
 		$tools,
