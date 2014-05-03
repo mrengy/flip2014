@@ -538,7 +538,7 @@ function hide_meta_boxes_posts() {
 	remove_meta_box('slugdiv', 'post', 'normal');
 	remove_meta_box('formatdiv', 'post', 'side');
 	remove_meta_box('authordiv', 'post', 'normal');
-	remove_meta_box('commentstatusdiv', 'post', 'normal');
+	//remove_meta_box('commentstatusdiv', 'post', 'normal');
 	//remove_meta_box('commentsdiv', 'post', 'normal');
 	//remove_meta_box('revisionsdiv', 'post', 'normal');
  
