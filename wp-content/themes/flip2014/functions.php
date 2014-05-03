@@ -347,10 +347,10 @@ function twentytwelve_entry_meta() {
 		get_the_author()
 	);
 	
-	$flip_tools = get_the_term_list($post->ID, 'tool','',', ');
+	$tools = get_the_term_list($post->ID, 'tool','',', ');
 
 	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name and 5 is tools.
-	if ( $tag_list ) {
+	if ( $tools ) {
 		$utility_text = __( 'This piece was created by %1$s, tagged %2$s, using the tools %5$s', 'twentytwelve' );
 	} elseif ( $categories_list ) {
 		$utility_text = __( 'This piece was created by %1$s.', 'twentytwelve' );
@@ -364,7 +364,7 @@ function twentytwelve_entry_meta() {
 		$tag_list,
 		$date,
 		$author,
-		$flip_tools
+		$tools
 	);
 }
 endif;
@@ -514,6 +514,15 @@ function tools_used_taxonomy(){
 }
 
 add_action( 'init', 'tools_used_taxonomy', 0 );
+
+/**
+ *Remove default post tag taxonomy
+ */
+
+function unregister_post_tag(){
+	register_taxonomy('post_tag', array());
+}
+add_action('init', 'unregister_post_tag');
 
 /**
  *Remove post meta boxes from posts
