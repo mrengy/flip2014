@@ -346,10 +346,12 @@ function twentytwelve_entry_meta() {
 		esc_attr( sprintf( __( 'View all posts by %s', 'twentytwelve' ), get_the_author() ) ),
 		get_the_author()
 	);
+	
+	$flip_tools = get_the_term_list($post->ID, 'tool','',', ');
 
-	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name.
+	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name and 5 is tools.
 	if ( $tag_list ) {
-		$utility_text = __( 'This piece was created by %1$s, using %2$s.', 'twentytwelve' );
+		$utility_text = __( 'This piece was created by %1$s, tagged %2$s, using the tools %5$s', 'twentytwelve' );
 	} elseif ( $categories_list ) {
 		$utility_text = __( 'This piece was created by %1$s.', 'twentytwelve' );
 	} else {
@@ -361,7 +363,8 @@ function twentytwelve_entry_meta() {
 		$categories_list,
 		$tag_list,
 		$date,
-		$author
+		$author,
+		$flip_tools
 	);
 }
 endif;
