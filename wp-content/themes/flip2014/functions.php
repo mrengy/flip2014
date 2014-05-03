@@ -506,8 +506,8 @@ function tools_used_taxonomy(){
 		'hierarchical' =>false,
 		);
 	
-	//replaces default post_tag taxonomy	
-	register_taxonomy( 'post_tag', 'post', $args );
+	//adds a taxonomy	called "tool"
+	register_taxonomy( 'tool', 'post', $args );
 }
 
 add_action( 'init', 'tools_used_taxonomy', 0 );
