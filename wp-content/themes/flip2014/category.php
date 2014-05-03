@@ -12,7 +12,7 @@
  */
 
 get_header(); ?>
-
+<!-- category.php -->
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
 

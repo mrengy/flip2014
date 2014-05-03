@@ -15,7 +15,7 @@
  */
 
 get_header(); ?>
-
+<!-- index.php -->
 	<div id="primary" class="site-content">
 		<div id="content" role="main">
 		<?php if ( have_posts() ) : ?>
