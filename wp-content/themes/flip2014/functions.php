@@ -348,16 +348,18 @@ function twentytwelve_entry_meta() {
 	);
 	
 	$tools = get_the_term_list($post->ID, 'tool','',', ');
+	
+	$artists = get_the_term_list($post->ID, 'artist','',', ');
 
-	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name and 5 is tools.
+	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name, 5 is tools, and 6 is artists.
 	if ( $tools ) {
-		if ( $categories_list ) {
-			$utility_text = __( 'This piece was created by %1$s, using %5$s', 'twentytwelve' );
+		if ( $artists ) {
+			$utility_text = __( 'This piece was created by %6$s, using %5$s', 'twentytwelve' );
 		} else{
 			$utility_text = __( 'This piece was created using %5$s', 'twentytwelve' );
 		}
-	} elseif ( $categories_list ) {
-		$utility_text = __( 'This piece was created by %1$s.', 'twentytwelve' );
+	} elseif ( $artists ) {
+		$utility_text = __( 'This piece was created by %6$s.', 'twentytwelve' );
 	} 
 
 	printf(
@@ -366,7 +368,8 @@ function twentytwelve_entry_meta() {
 		$tag_list,
 		$date,
 		$author,
-		$tools
+		$tools,
+		$artists
 	);
 }
 endif;
@@ -455,7 +458,7 @@ function twentytwelve_customize_preview_js() {
 add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
 
 /**
- *Rename categories taxonomy for artists
+ *Add taxonomy for artists
  */
 
 function artist_taxonomy(){
@@ -480,13 +483,15 @@ function artist_taxonomy(){
 		'hierarchical' =>false,
 		);
 		
-	register_taxonomy( 'category', 'post', $args );
+	register_taxonomy( 'artist', 'post', $args );
 }
 
 add_action( 'init', 'artist_taxonomy', 0 );
 
+
+
 /**
- *Rename tags taxonomy for tools used
+ *Add taxonomy for tools used
  */
 
 function tools_used_taxonomy(){
@@ -511,20 +516,21 @@ function tools_used_taxonomy(){
 		'hierarchical' =>false,
 		);
 	
-	//adds a taxonomy	called "tool"
+	//adds a taxonomy called "tool"
 	register_taxonomy( 'tool', 'post', $args );
 }
 
 add_action( 'init', 'tools_used_taxonomy', 0 );
 
 /**
- *Remove default post tag taxonomy
+ *Unregister default taxonomies
  */
 
-function unregister_post_tag(){
-	register_taxonomy('post_tag', array());
+function unregister_taxonomies(){
+    register_taxonomy('post_tag', array());
+	register_taxonomy('category', array());
 }
-add_action('init', 'unregister_post_tag');
+add_action('init', 'unregister_taxonomies');
 
 /**
  *Remove post meta boxes from posts
