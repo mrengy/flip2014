@@ -18,7 +18,7 @@
 			<?php the_post_thumbnail(); ?>
 			<?php if ( is_single() ) : ?>
 				<h1 class="entry-title">
-					<?php if ( the_title() ) { 
+					<?php if ( get_the_title() ) { 
 						the_title();
 					} else { ?>
 						Untitled
@@ -27,7 +27,7 @@
 			<?php else : ?>
 			<h1 class="entry-title">
 				<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
-					<?php if ( the_title() ) { 
+					<?php if ( get_the_title() ) { 
 						the_title(); 
 					} else { ?>
 						Untitled
